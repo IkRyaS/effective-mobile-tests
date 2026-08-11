@@ -1,4 +1,3 @@
-
 class DataText:
 
     LOGIN_STANDARD_USER = "standard_user"

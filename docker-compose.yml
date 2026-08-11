@@ -1,10 +1,25 @@
 services:
-  ui-tests:
+  ui-api-tests:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        BUILDKIT_INLINE_CACHE: 1
+    image: qa-automation-runner:latest
+    container_name: playwright-tests
     volumes:
-      - .:/app
+      - ./src:/app/src:ro
+      - ./tests:/app/tests:ro
+      - ./allure-results:/app/allure-results
+    env_file:
+      - .env
     environment:
       - PYTHONUNBUFFERED=1
       - HEADLESS=true
+      - PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
+      - PYTEST_CACHE_DIR=/tmp/pytest_cache
+    network_mode: bridge
+    deploy:
+      resources:
+        limits:
+          memory: 2G

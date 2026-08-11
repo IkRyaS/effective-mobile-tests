@@ -2,7 +2,6 @@
 env/
 venv/
 ENV/
-
 .uv/
 
 **/__pycache__/
@@ -15,6 +14,8 @@ ENV/
 report.html
 screenshot*.png
 test-results/
+allure-results/
+allure-report/
 
 .local-browsers/
 
