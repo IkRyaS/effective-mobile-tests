@@ -1,11 +1,17 @@
 from playwright.sync_api import Page
 
-from src.pages.base_page import BasePage
+from src.ui.pages.base_page import BasePage
 
 
 class YourInfoPage(BasePage):
+    """Страница ввода персональной информации покупателя."""
 
-    def __init__(self, page: Page):
+    def __init__(self, page: Page) -> None:
+        """Инициализирует страницу и локаторы элементов.
+
+        Args:
+            page: Объект страницы Playwright.
+        """
         super().__init__(page)
 
         self.first_name = page.locator("#first-name")
@@ -13,7 +19,7 @@ class YourInfoPage(BasePage):
         self.mail_index = page.locator("#postal-code")
         self.continue_button = page.locator("#continue")
 
-    def fill_out_data(self, first_name: str, last_name: str, mail_index: str):
+    def fill_out_data(self, first_name: str, last_name: str, mail_index: str) -> None:
         """Заполняет персональные данные покупателя и переходит к подтверждению.
 
         Args:
@@ -23,6 +29,7 @@ class YourInfoPage(BasePage):
 
         Raises:
             PlaywrightError: Если поля не найдены или кнопка недоступна.
+            TimeoutError: Если элементы не стали доступны в течение таймаута.
         """
         self.first_name.fill(first_name)
         self.last_name.fill(last_name)
